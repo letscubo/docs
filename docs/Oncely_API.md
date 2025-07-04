@@ -7,8 +7,6 @@ After submitting the partner communication form, the Partner Notification Profil
 The partner needs to provide relevant information, including the Notify URL and Authorization Bearer `${token}`.  
 Oncely will make HTTP calls (format: `application/json`) to the provided URL with the token when necessary.
 
-<br/>
-
 #### Oncely makes calls based on different order status scenarios: Order Creation / Order Refund / Subscription Creation / Subscription Cancellation / Subscription Activation.  
 
 <br/>
