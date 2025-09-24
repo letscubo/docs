@@ -9,8 +9,7 @@ Oncely will make HTTP calls (format: `application/json`) to the provided URL wit
 
 #### Oncely makes calls based on different order status scenarios: Order Creation / Order Refund / Subscription Creation / Subscription Cancellation / Subscription Activation.
 
-<div class="mermaid">
-
+``` mermaid
 flowchart TD
     A[User Action] --> B{Action Type Determination}
 
@@ -59,8 +58,7 @@ flowchart TD
     class C1,D1,E1,F1,G1 oncely
     class C3,D3,E3,F3,G3 partner
     class A,H user
-
-</div>
+```
 <br/>
 
 **Order Creation**
