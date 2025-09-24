@@ -9,10 +9,11 @@ Oncely will make HTTP calls (format: `application/json`) to the provided URL wit
 
 #### Oncely makes calls based on different order status scenarios: Order Creation / Order Refund / Subscription Creation / Subscription Cancellation / Subscription Activation.
 
+
 ```mermaid
 flowchart TD
     A[User Action] --> B{Action Type Determination}
-    
+
     B -->|Purchase Regular Product| C[Order Creation]
     B -->|Request Refund| D[Order Refund]
     B -->|Purchase Subscription Product| E[Subscription Creation]
@@ -58,13 +59,16 @@ flowchart TD
     class C1,D1,E1,F1,G1 oncely
     class C3,D3,E3,F3,G3 partner
     class A,H user
-```
 
+```
 <br/>
 
 **Order Creation**
 
 > When a user purchases a regular product on Oncely, Oncely creates an order and sends an HTTP request for **Order Creation** to the Partner.
+
+> Partners need to provide an activation link for users to activate after a successful purchase.
+(Please return the redirect_url data in the response json)
 
 | Parameter Name    | Parameter Value                                                  |
 |-------------------|------------------------------------------------------------------|
@@ -78,7 +82,21 @@ flowchart TD
 | `productName`     | Order product name                                               |
 | `variantId`       | Order product variant ID                                         |
 | `variantName`     | Order product variant name                                       |
-
+**Request**
+```json
+{
+  "action": "orders/create",
+  "uuid": "ord_7c62c1f8a4b5d9e3f6a2b1c9",
+  "email": "customer@example.com",
+  "created": "2024-01-15T10:30:00Z",
+  "status": "paid",
+  "price": 99.99,
+  "productId": "prod_123456",
+  "productName": "Premium Software License",
+  "variantId": "var_789012",
+  "variantName": "Annual Plan"
+}
+```
 **Response 200 OK**
 ```json
 {
@@ -106,17 +124,37 @@ flowchart TD
 | `variantId`       | Order product variant ID                                         |
 | `variantName`     | Order product variant name                                       |  
 
+**Request**
+```json
+{
+  "action": "orders/refund",
+  "uuid": "ord_7c62c1f8a4b5d9e3f6a2b1c9",
+  "email": "customer@example.com",
+  "created": "2024-01-15T10:30:00Z",
+  "status": "refund",
+  "price": 99.99,
+  "productId": "prod_123456",
+  "productName": "Premium Software License",
+  "variantId": "var_789012",
+  "variantName": "Annual Plan"
+}
+```
 **Response 200 OK**
 ```json
 {
   "message": "ok"
 }
 ```
+
+
 <br/><br/>
 
 **Subscription Creation**
 
 > When a user purchases a subscription product on Oncely, Oncely creates an order and sends an HTTP request for **Subscription Creation** to the Partner.
+
+> Partners need to provide an activation link for users to activate after a successful purchase.
+(Please return the redirect_url data in the response json)
 
 | Parameter Name    | Parameter Value                                                  |
 |-------------------|------------------------------------------------------------------|
@@ -134,6 +172,24 @@ flowchart TD
 | `planId`          | Plan ID associated with the order                                |
 | `planName`        | Plan name associated with the order                              |
 
+**Request**
+```json
+{
+  "action": "SubscriptionCreated",
+  "uuid": "sub_8d73c2g9b5e4f7a1c6b3d2a8",
+  "email": "subscriber@example.com",
+  "created": "2024-01-15T14:20:00Z",
+  "status": "ACTIVE",
+  "price": 29.99,
+  "productId": "prod_789012",
+  "productName": "Premium Monthly Subscription",
+  "variantId": "var_345678",
+  "variantName": "Monthly Plan",
+  "subscriptionId": "sub_abc123def456",
+  "planId": "plan_monthly_29.99",
+  "planName": "Monthly Subscription Plan"
+}
+```
 **Response 200 OK**
 ```json
 {
@@ -141,6 +197,7 @@ flowchart TD
   "redirect_url": "https://<site>/login?a=61yvd1f&source=oncely"  // Partner’s URL where activation will be completed
 }
 ```
+
 <br/><br/>
 
 **Subscription Cancellation**
@@ -162,7 +219,25 @@ flowchart TD
 | `subscriptionId`  | Subscription ID                                                  |
 | `planId`          | Plan ID associated with the order                                |
 | `planName`        | Plan name associated with the order                              |  
+**Request**
+```json
+{
+  "action": "SubscriptionCancel",
+  "uuid": "sub_8d73c2g9b5e4f7a1c6b3d2a8",
+  "email": "subscriber@example.com",
+  "created": "2024-01-15T14:20:00Z",
+  "status": "CANCELLED",
+  "price": 29.99,
+  "productId": "prod_789012",
+  "productName": "Premium Monthly Subscription",
+  "variantId": "var_345678",
+  "variantName": "Monthly Plan",
+  "subscriptionId": "sub_abc123def456",
+  "planId": "plan_monthly_29.99",
+  "planName": "Monthly Subscription Plan"
+}
 
+```
 **Response 200 OK**
 ```json
 {
@@ -192,6 +267,24 @@ flowchart TD
 | `planId`          | Plan ID associated with the order                                |
 | `planName`        | Plan name associated with the order                              |    
 
+**Request**
+```json
+{
+  "action": "SubscriptionActivated",
+  "uuid": "sub_8d73c2g9b5e4f7a1c6b3d2a8",
+  "email": "subscriber@example.com",
+  "created": "2024-01-15T14:20:00Z",
+  "status": "ACTIVE",
+  "price": 29.99,
+  "productId": "prod_789012",
+  "productName": "Premium Monthly Subscription",
+  "variantId": "var_345678",
+  "variantName": "Monthly Plan",
+  "subscriptionId": "sub_abc123def456",
+  "planId": "plan_monthly_29.99",
+  "planName": "Monthly Subscription Plan"
+}
+```
 **Response 200 OK**
 ```json
 {
