@@ -59,9 +59,9 @@
         mermaid.initialize({
             startOnLoad: true,
             theme: window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 
-                   '{{ site.mermaid.theme.dark }}' : '{{ site.mermaid.theme.light }}',
-            {{ site.mermaid.config | jsonify }}
+                   '{{ site.mermaid.theme.dark }}' : '{{ site.mermaid.theme.light }}'
         });
+
         
         // 监听主题变化
         window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
