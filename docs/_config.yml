@@ -1,4 +1,34 @@
-theme: jekyll-theme-minimal
-title: Octocat's homepage
-description: Bookmark this to keep an eye on my project updates!
-mermaid: true
+# 基本配置
+title: "我的网站"
+description: "使用 Mermaid 图表的网站"
+baseurl: "" 
+url: "https://yourusername.github.io"
+
+# 插件配置
+plugins:
+  - jekyll-mermaid
+
+# 排除文件
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - vendor
+
+# Mermaid 特定配置
+mermaid:
+  # Mermaid CDN 版本
+  version: "9.4.0"
+  # 主题配置
+  theme: 
+    light: default
+    dark: dark
+  # 其他配置
+  config:
+    startOnLoad: true
+    securityLevel: 'loose'
+    flowchart:
+      useMaxWidth: true
+      htmlLabels: true
+    sequence:
+      diagramMarginX: 50
+      diagramMarginY: 10
