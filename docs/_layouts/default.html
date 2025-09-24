@@ -53,20 +53,16 @@
     </footer>
 
     <!-- Mermaid JS -->
-    <script src="https://cdn.jsdelivr.net/npm/mermaid@{{ site.mermaid.version }}/dist/mermaid.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
     <script>
-        // 初始化 Mermaid
-        mermaid.initialize({
-            startOnLoad: true,
-            theme: window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 
-                   '{{ site.mermaid.theme.dark }}' : '{{ site.mermaid.theme.light }}'
-        });
-
-        
-        // 监听主题变化
-        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+        document.addEventListener('DOMContentLoaded', function() {
             mermaid.initialize({
-                theme: event.matches ? '{{ site.mermaid.theme.dark }}' : '{{ site.mermaid.theme.light }}'
+                startOnLoad: true,
+                theme: 'default',
+                flowchart: {
+                    useMaxWidth: true,
+                    htmlLabels: true
+                }
             });
         });
     </script>
