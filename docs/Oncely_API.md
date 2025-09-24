@@ -82,6 +82,7 @@ flowchart TD
 | `productName`     | Order product name                                               |
 | `variantId`       | Order product variant ID                                         |
 | `variantName`     | Order product variant name                                       |
+
 **Request**
 ```json
 {
@@ -97,6 +98,7 @@ flowchart TD
   "variantName": "Annual Plan"
 }
 ```
+
 **Response 200 OK**
 ```json
 {
@@ -219,6 +221,7 @@ flowchart TD
 | `subscriptionId`  | Subscription ID                                                  |
 | `planId`          | Plan ID associated with the order                                |
 | `planName`        | Plan name associated with the order                              |  
+
 **Request**
 ```json
 {
